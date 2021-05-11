@@ -12,13 +12,13 @@ def getClosestSong(r, g, b, df):
             minIdx = i
             minDis = dis
     # print(df.loc[minIdx])
-    return minIdx
+    return df.loc[minIdx].to_dict()
 
 def getGenreTopN(genre, df, N):
     mask = df.genre.apply(lambda x: genre in x)
     top = df[mask].nlargest(N, ['popularity'])
     # print(top)
-    return top.index.tolist()  
+    return top.to_dict()  
 
 def getArtistColor(artist, df):
     r, g, b = 0, 0, 0
@@ -28,7 +28,7 @@ def getArtistColor(artist, df):
         r += songs['R'][i]
         g += songs['G'][i]
         b += songs['B'][i]
-    return (r//leng, g//leng, b//leng)
+    return (int(r//leng), int(g//leng), int(b//leng))
 
 if __name__ == "__main__":
     color_df = pickle.load(open("color_df.p", "rb"))

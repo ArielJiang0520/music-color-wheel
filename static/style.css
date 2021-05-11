@@ -1,0 +1,40 @@
+body{
+	transition:  all 0.5s;
+}
+
+.frame{
+	height:100vh;
+	max-width:1600px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin:0 auto;
+}
+#picker{
+	width:500px;
+}
+
+#response{
+	/*margin-left:150px;*/
+	width:500px;
+}
+
+.block{
+	height:100px;
+	width:250px;
+}
+#genre{
+	max-width: 800px;
+	display: flex;
+	margin:0 auto;
+	flex-wrap:wrap;
+	justify-content: space-between;
+}
+#genre .item{
+	flex-basis:250px;
+}
+
+#artist{
+	width:1000px;
+	height:1000px;
+}

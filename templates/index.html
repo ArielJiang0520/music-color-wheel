@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Jane's News</title>
+    <!-- Favicon-->
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet" />
+</head>
+
+<body id="page-top">
+    <div class="frame">
+        <div id="picker"></div>
+        <div id="response"></div>
+    </div>
+    <div id="genre"></div>
+    <div id="artist"></div>
+    <!-- Bootstrap core JS-->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@jaames/iro@5"></script>
+    <script>
+    jQuery(document).ready(function($) {
+
+        $.ajax({
+            url: '/genre',
+            data: {},
+            contentType: 'application/json;charset=UTF-8',
+
+            success: function(response) {
+                console.log(response);
+
+                for (const prop in response.results.title) {
+                    item = $("<div>")
+                    item.append("<h3>" + response.results.title[prop] + ' - ' + response.results.artist[prop] + '</h3>')
+                    rgb = '(' + response.results['R'][prop] + "," + response.results['G'][prop] + "," + response.results['B'][prop] + ')'
+                    item.append("<div style = 'background:rgb" + rgb + "' class = 'block'></div>")
+                    $('#genre').append(item)
+                }
+
+
+            }
+        })
+
+        $.ajax({
+            url: '/artist',
+            data: {},
+            contentType: 'application/json;charset=UTF-8',
+
+            success: function(response) {
+                console.log(response);
+                rgb = '(' + response.results[0] + "," + response.results[1] + "," + response.results[2] + ')'
+                $('#artist').css("background", "rgb" + rgb)
+
+            }
+        })
+
+
+
+        var colorPicker = new iro.ColorPicker('#picker');
+
+
+
+        colorPicker.on('input:end', function(color) {
+            // log the current color as a HEX string
+            rgb = '(' + color.rgb['r'] + "," + color.rgb['g'] + "," + color.rgb['b'] + ')'
+            var luma = 0.2126 * color.rgb['r'] + 0.7152 * color.rgb['g'] + 0.0722 * color.rgb['b']; // per ITU-R BT.709
+
+            if (luma < 60) {
+                $('#response').css("color", "white")
+                // pick a different colour
+            } else {
+                $('#response').css("color", "black")
+
+            }
+            $('.frame').css("background", "rgb" + rgb)
+            console.log(color.rgb);
+            $.ajax({
+                url: '/closest',
+                data: { color: JSON.stringify(color.rgb) },
+                contentType: 'application/json;charset=UTF-8',
+
+                success: function(response) {
+                    console.log(response);
+                    song = $('<div>')
+                    song.append("<h1>" + response.results['title'] + '</h1>')
+                    song.append("<h2>" + response.results['artist'] + '</h2>')
+                    genre = $('<ul>')
+                    for (i = 0; i < response.results.genre.length; i++) {
+                        genre.append("<li>" + response.results.genre[i] + '</li>')
+                    }
+                    song.append(genre)
+                    song.append("<h3>Popularity: " + response.results['popularity'])
+                    // song.append("<h2>" + response.results['artist'] + '</h2>')
+
+                    $('#response').html(song)
+
+                }
+            })
+        });
+    })
+    </script>
+</body>
+
+</html>
