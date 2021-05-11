@@ -43,14 +43,10 @@ def closest():
 
 @app.route('/genre', methods=['GET'])
 def genre():
-<<<<<<< HEAD
     genre = request.args['genre']
-    print(genre)
-    topN = tools.getGenreTopN(genre, color_df, 10)
-=======
+
     # genre = request.args['genre']
     topN = DB.get_songs_for_genre('british soul', 10) # tools.getGenreTopN('british soul', color_df, 10)
->>>>>>> 67cf0fc6650ec261a2e3a983be8fa0d41d2fec37
     print(topN)
     return jsonify({"results":topN})
 
