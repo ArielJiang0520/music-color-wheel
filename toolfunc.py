@@ -34,4 +34,4 @@ if __name__ == "__main__":
     color_df = pickle.load(open("color_df.p", "rb"))
     print(getClosestSong(218, 116, 101, color_df))
     print(getGenreTopN('british soul', color_df, 10))
-    print(getArtistColor('Adele', color_df))
+    # print(getArtistColor('Adele', color_df))

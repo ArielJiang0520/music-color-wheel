@@ -1,13 +1,15 @@
 # app.py
 from flask import Flask, request, jsonify
 from flask import render_template
-import toolfunc as tools
+# import toolfunc as tools
 import json
+from data import Dataset
 
 import pickle
 import pandas
 
 color_df = pickle.load(open("color_df.p", "rb"))
+DB = Dataset(color_df)
 
 app = Flask(__name__, static_url_path='')
 
@@ -19,11 +21,10 @@ def send_js(path):
 def closest():
     color = request.args['color']
     color = json.loads(color)
-    closest = tools.getClosestSong(color['r'], color['g'], color['b'], color_df)
+    closest = DB.get_closest_song(color['r'], color['g'], color['b']) # tools.getClosestSong(color['r'], color['g'], color['b'], color_df)
     closest['popularity'] = int(closest['popularity'])
     closest['R'] = int(closest['R'])
     closest['G'] = int(closest['G'])
-
     closest['B'] = int(closest['B'])
 
     print(closest)
@@ -34,13 +35,13 @@ def closest():
 @app.route('/genre', methods=['GET'])
 def genre():
     # genre = request.args['genre']
-    topN = tools.getGenreTopN('british soul', color_df, 10)
+    topN = DB.get_songs_for_genre('british soul', 10) # tools.getGenreTopN('british soul', color_df, 10)
     print(topN)
     return jsonify({"results":topN})
 
 @app.route('/artist', methods=['GET'])
 def artist():
-    artist =  tools.getArtistColor('Adele', color_df)
+    artist =  DB.get_songs_for_artist('Adele', 10) # tools.getArtistColor('Adele', color_df)
     print(artist)
     # artist[0] = int(artist[0])
     # artist[1] = int(artist[1])
