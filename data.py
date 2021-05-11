@@ -3,7 +3,7 @@ import numpy as np
 import pickle
 import os
 from itertools import chain
-from collections import defaultdict, deque
+from collections import defaultdict
 from sklearn.metrics.pairwise import cosine_similarity
 
 
@@ -66,8 +66,7 @@ class Dataset:
 
     def get_average_color_for_artist(self, artist):
         """ return the mean color of all the songs by this artist """
-        assert artist in self.ARTIST_POOL
-
+        
         a_df = self.df.iloc[self.ARTISTS_TO_IDS[artist]]
         mean_color = (np.array(a_df[['R', 'G', 'B']].sum(axis=0)) / len(a_df)).astype(int)
 
@@ -75,7 +74,6 @@ class Dataset:
 
     def get_average_color_for_genre(self, genre):
         """ return the mean color of this genre """
-        assert genre in self.GENRE_POOL
 
         g_df = self.df.iloc[self.GENRES_TO_IDS[genre]]
         mean_color = (np.array(g_df[['R', 'G', 'B']].sum(axis=0)) / len(g_df)).astype(int)
@@ -92,7 +90,7 @@ if __name__ == '__main__':
     """
     {'artist': 'Rihanna', 'title': 'Bitch Better Have My Money', 'popularity': 76.0, 'R': 10, 'G': 198, 'B': 198, 'genre': ['barbadian pop', 'dance pop', 'pop', 'post-teen pop', 'urban contemporary']}
     """
-    
+
     print(db.get_songs_for_genre('pop', 3))
     """
     [{'artist': 'Justin Bieber', 'title': 'Peaches', 'popularity': 100.0, 'R': 84, 'G': 126, 'B': 172, 'genre': ['canadian pop', 'pop', 'post-teen pop']}, 

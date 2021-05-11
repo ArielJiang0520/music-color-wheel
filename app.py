@@ -27,7 +27,7 @@ def closest():
     closest['G'] = int(closest['G'])
     closest['B'] = int(closest['B'])
 
-    print(closest)
+    # print(closest)
 
     # closest = json.dumps(closest)    # print(request.args['color'])
     return jsonify({"results":closest})
@@ -36,13 +36,13 @@ def closest():
 def genre():
     # genre = request.args['genre']
     topN = DB.get_songs_for_genre('british soul', 10) # tools.getGenreTopN('british soul', color_df, 10)
-    print(topN)
+    # print(topN)
     return jsonify({"results":topN})
 
 @app.route('/artist', methods=['GET'])
 def artist():
     artist =  DB.get_songs_for_artist('Adele', 10) # tools.getArtistColor('Adele', color_df)
-    print(artist)
+    # print(artist)
     # artist[0] = int(artist[0])
     # artist[1] = int(artist[1])
     # artist[2] = int(artist[2])
