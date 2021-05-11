@@ -9,6 +9,7 @@ body{
 	align-items: center;
 	justify-content: center;
 	margin:0 auto;
+	transition: all 0.75s
 }
 #picker{
 	width:500px;

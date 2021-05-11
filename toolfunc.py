@@ -2,7 +2,7 @@ import pickle
 import pandas
 import math
 import heapq
-
+import json
 def getClosestSong(r, g, b, df):
     minDis = float("inf")
     minIdx = -1
@@ -32,6 +32,15 @@ def getArtistColor(artist, df):
 
 if __name__ == "__main__":
     color_df = pickle.load(open("color_df.p", "rb"))
-    print(getClosestSong(218, 116, 101, color_df))
-    print(getGenreTopN('british soul', color_df, 10))
-    print(getArtistColor('Adele', color_df))
+    # print(getClosestSong(218, 116, 101, color_df))
+    # print(getGenreTopN('british soul', color_df, 10))
+    # print(getArtistColor('Adele', color_df))
+    genres = set()
+    for i in range(len( color_df )):
+        # df['genre'][i]
+        # print( color_df['genre'][i])
+        for genre in color_df['genre'][i]:
+            genres.add(genre)
+    f = open("genres.txt", 'a')
+    jsonString = json.dumps(list(genres))
+    f.write(jsonString)
