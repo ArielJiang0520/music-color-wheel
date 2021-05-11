@@ -80,7 +80,7 @@ class Dataset:
 
         return {'R': mean_color[0], 'G': mean_color[1], 'B': mean_color[2]}
     
-
+    
 
 if __name__ == '__main__':
     color_df = pickle.load(open('color_df.p', 'rb'))
@@ -88,7 +88,11 @@ if __name__ == '__main__':
 
     print(db.get_closest_song(0, 255, 255))
     """
-    {'artist': 'Rihanna', 'title': 'Bitch Better Have My Money', 'popularity': 76.0, 'R': 10, 'G': 198, 'B': 198, 'genre': ['barbadian pop', 'dance pop', 'pop', 'post-teen pop', 'urban contemporary']}
+    {'artist': 'Rihanna', 'title': 'Bitch Better Have My Money', 'R': 10, 'G': 198, 'B': 198, 
+    'genre': ['barbadian pop', 'dance pop', 'pop', 'post-teen pop', 'urban contemporary'], 
+    'id': '0NTMtAO2BV4tnGvw9EgBVq', 
+    'popularity': 76.0, 'valence': 0.395, 'energy': 0.728, 
+    'danceability': 0.781}
     """
 
     print(db.get_songs_for_genre('pop', 3))
