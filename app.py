@@ -47,13 +47,15 @@ def genre():
     genre = request.args['genre']
 
     # genre = request.args['genre']
-    topN = DB.get_songs_for_genre('british soul', 10) # tools.getGenreTopN('british soul', color_df, 10)
+    topN = DB.get_songs_for_genre(genre, 10) # tools.getGenreTopN('british soul', color_df, 10)
     print(topN)
     return jsonify({"results":topN})
 
 @app.route('/artist', methods=['GET'])
 def artist():
-    artist =  DB.get_songs_for_artist('Adele', 10) # tools.getArtistColor('Adele', color_df)
+    artist = request.args['artist']
+
+    artist =  DB.get_songs_for_artist(artist, 10) # tools.getArtistColor('Adele', color_df)
     print(artist)
     # artist[0] = int(artist[0])
     # artist[1] = int(artist[1])

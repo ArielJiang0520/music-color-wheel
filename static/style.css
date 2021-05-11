@@ -38,8 +38,8 @@ body{
 }
 
 .block{
-	height:100px;
-	width:250px;
+	height:250px;
+	width:100%;
 }
 #genre{
 	max-width: 800px;
@@ -47,6 +47,36 @@ body{
 	margin:0 auto;
 	flex-wrap:wrap;
 	justify-content: space-between;
+}
+.genre-results div{
+	position: relative;
+}
+.genre-results h3{
+	font-family:'Glacial Indifference Bold';font-weight:normal;font-size:32px;
+	position:absolute;
+	top:50%;
+	left:50%;
+	transform:translate(-50%,-50%);
+	font-size:32px;
+	z-index:4;
+	margin:0 ;
+	color:white;
+
+}
+.artist-results div{
+	position: relative;
+}
+.artist-results h3{
+	font-family:'Glacial Indifference Bold';font-weight:normal;font-size:32px;
+	position:absolute;
+	top:50%;
+	left:50%;
+	transform:translate(-50%,-50%);
+	font-size:32px;
+	z-index:4;
+	margin:0 ;
+	color:white;
+
 }
 #genre .item{
 	flex-basis:250px;
@@ -106,8 +136,41 @@ color:rgb(149, 26, 190);
  	display: inline-block;
  	/*background-image:url('backg.webp');*/
  	/*background-size:cover;*/
+ 	color:rgb(149, 26, 190);
  	padding: 10px;
- 	border: 1px solid gray;
+ 	border: 1px solid rgb(149, 26, 190);
  	border-radius:20px;
  	margin-right:10px;
+ 	margin-bottom: 10px;
  }
+
+.artist-genre-frame{
+	font-size:0px;
+}
+ .artists, .genres{
+ 	width: 50%;
+ 	display: inline-block;
+ 	box-sizing: border-box;
+ 	text-align: center;
+ 	vertical-align: top;
+
+ }
+ .genres{
+ 	background:#e7b0f8;
+ }
+ .artists{
+ 	background:	#f6d10d;
+ }
+ form input{
+ 	margin-top:30px;
+ 	border-radius:80px;
+ 	width:550px;
+ 	height:80px;
+ 	outline:none;
+ 	-webkit-appearance:none;
+ 	border:0px;
+ 	margin-bottom:30px;
+ 	font-family:'Glacial Indifference Bold';
+ 	padding-left:40px;
+ 	font-size:40px;
+ } 

@@ -5,7 +5,7 @@ import os
 from itertools import chain
 from collections import defaultdict, deque
 from sklearn.metrics.pairwise import cosine_similarity
-
+import json
 
 class Dataset:
     def __init__(self, df):
@@ -116,3 +116,6 @@ if __name__ == '__main__':
     """
     {'R': 144, 'G': 110, 'B': 147}
     """
+    outfile = open("artists.json", 'a')
+    artists = json.dumps(list(set(db.get_all_artists())))
+    outfile.write(artists)
