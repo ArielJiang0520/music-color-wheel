@@ -16,17 +16,34 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-autocomplete/1.0.7/jquery.auto-complete.css" integrity="sha512-uq8QcHBpT8VQcWfwrVcH/n/B6ELDwKAdX4S/I3rYSwYldLVTs7iII2p6ieGCM13QTPEKZvItaNKBin9/3cjPAg==" crossorigin="anonymous" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
 </head>
 
 <body id="page-top">
-    <div class="frame">
+    <div class="color-frame">
         <div id="picker"></div>
-        <div id="response"></div>
+        <div id="response">
+            <h1>Peaches</h1>
+            <h2>Justin Bieber</h2>
+            <div class = "popularity">
+            <img src = "{{ url_for('static', filename='fire.svg') }}"><span>98</span>
+        </div>
+        <div class = "music-score">
+            <img src = "{{ url_for('static', filename='music-note.png') }}"><span>76</span>
+        </div>
+        
+        <div class = "genre-list">
+            <div class ="genre-item">pop</div>
+            <div class ="genre-item">candaian pop</div>
+            <div class ="genre-item">post-teen pop</div>
+
+</div>
+        </div>
     </div>
     <form>
         <input name="q" type="text" />
     </form>
-    <div>sdsds</div>
     <div id="genre"></div>
     <div id="artist"></div>
     <!-- Bootstrap core JS-->
@@ -79,8 +96,6 @@
             },
             onSelect: function(e, term, item) {
                 e.preventDefault()
-                console.log(term)
-                console.log(item)
                 $.ajax({
                     url: '/genre',
                     data: {genre:term },
@@ -88,11 +103,12 @@
 
                     success: function(response) {
                         console.log(response);
- $('#genre').html('')
-                        for (const prop in response.results.title) {
+                    $('#genre').html('')
+                        for (const prop in response.results) {
+                            console.log(prop)
                             item = $("<div>")
-                            item.append("<h3>" + response.results.title[prop] + ' - ' + response.results.artist[prop] + '</h3>')
-                            rgb = '(' + response.results['R'][prop] + "," + response.results['G'][prop] + "," + response.results['B'][prop] + ')'
+                            item.append("<h3>" + response.results[prop]['title'] + ' - ' + response.results[prop]['artist'] + '</h3>')
+                            rgb = '(' + response.results[prop]['R'] + "," + response.results[prop]['G'] + "," + response.results[prop]['B'] + ')'
                             item.append("<div style = 'background:rgb" + rgb + "' class = 'block'></div>")
                             $('#genre').append(item)
                         }
@@ -131,15 +147,19 @@
             rgb = '(' + color.rgb['r'] + "," + color.rgb['g'] + "," + color.rgb['b'] + ')'
             var luma = 0.2126 * color.rgb['r'] + 0.7152 * color.rgb['g'] + 0.0722 * color.rgb['b']; // per ITU-R BT.709
 
-            if (luma < 60) {
-                $('#response').css("color", "white")
+            if (luma > 200) {
+                $('#response').css("background", "rgb(84, 84, 84)")
                 // pick a different colour
             } else {
-                $('#response').css("color", "black")
+                $('#response').css("background", "white")
 
             }
-            $('.frame').css("background", "rgb" + rgb)
-            console.log(color.rgb);
+            $('.color-frame').css("background", "rgb" + rgb)
+            $('#response h1').css("color", "rgb" + rgb)
+            $('#response h2').css("color", "rgb" + rgb)
+            $('#response span').css("color", "rgb" + rgb)
+
+
             $.ajax({
                 url: '/closest',
                 data: { color: JSON.stringify(color.rgb) },
@@ -148,17 +168,19 @@
                 success: function(response) {
                     console.log(response);
                     song = $('<div>')
-                    song.append("<h1>" + response.results['title'] + '</h1>')
-                    song.append("<h2>" + response.results['artist'] + '</h2>')
-                    genre = $('<ul>')
+         
+                    $('.genre-list').html("")
                     for (i = 0; i < response.results.genre.length; i++) {
-                        genre.append("<li>" + response.results.genre[i] + '</li>')
+                        $('.genre-list').append("<div class = 'genre-item'>" + response.results.genre[i] + '</div>')
                     }
-                    song.append(genre)
-                    song.append("<h3>Popularity: " + response.results['popularity'])
+                    // song.append(genre)
+                    // song.append("<h3>Popularity: " + response.results['popularity'])
                     // song.append("<h2>" + response.results['artist'] + '</h2>')
 
-                    $('#response').html(song)
+                    $('#response h1').text(response.results['title'] )
+                    $('#response h2').text(response.results['artist'])
+                    $('#response .popularity span').text(response.results['popularity'])
+
 
                 }
             })

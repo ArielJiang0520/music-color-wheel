@@ -1,15 +1,32 @@
+
+    @font-face {
+    font-family: 'Glacial Indifference Regular';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Glacial Indifference Regular'), url('GlacialIndifference-Regular.woff') format('woff');
+    }
+    
+
+    @font-face {
+    font-family: 'Glacial Indifference Bold';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Glacial Indifference Bold'), url('GlacialIndifference-Bold.woff') format('woff');
+    }
+
 body{
 	transition:  all 0.5s;
 }
 
-.frame{
+.color-frame{
 	height:100vh;
-	max-width:1600px;
+	width:100%;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	margin:0 auto;
-	transition: all 0.75s
+	transition: all 0.75s;
+	background:rgb(149, 26, 190);
 }
 #picker{
 	width:500px;
@@ -39,3 +56,58 @@ body{
 	width:1000px;
 	height:1000px;
 }
+#response{
+	background:white;
+	padding:50px 50px;
+
+}
+
+ #response h1{
+ 	transition:all 0.5s;
+font-family: 'Fredoka One', cursive;
+color:rgb(149, 26, 190);
+font-size: 80px;
+font-weight:normal;
+line-height:1;
+ }
+#response .popularity {
+	display: inline-block;
+	margin-right:100px;
+}
+#response .music-score {
+	display: inline-block;
+}
+ #response img{
+ 	width:50px;
+ 	height:auto;
+ 	vertical-align: middle;
+ }
+ #response h2{
+ 	font-family:'Glacial Indifference Bold';font-weight:normal;font-size:32px;
+ 	text-transform:uppercase;
+color:rgb(149, 26, 190);
+letter-spacing: 3px;
+margin-top:-40px;
+
+ }
+ #response span{
+color:rgb(149, 26, 190);
+ 	font-family:'Glacial Indifference Bold';font-weight:normal;font-size:32px;
+ 	font-size:44px;
+ 	margin-left:20px;
+ 	/*margin-top:-20px;*/
+ 	vertical-align: middle;
+ }
+ #response .genre-list{
+ 	margin-top:50px;
+ }
+ #response .genre-item{
+ 	font-family:'Glacial Indifference Bold';
+ 	display: inline-block;
+ 	/*background-image:url('backg.webp');*/
+ 	/*background-size:cover;*/
+ 	padding: 10px;
+ 	border: 1px solid gray;
+ 	border-radius:20px;
+ 	margin-right:10px;
+ }
