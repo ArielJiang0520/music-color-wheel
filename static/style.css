@@ -174,3 +174,15 @@ color:rgb(149, 26, 190);
  	padding-left:40px;
  	font-size:40px;
  } 
+
+ .intro{
+ 	height:100vh;
+ 	background: white;
+ 	padding:0px 100px;
+
+ }
+ .intro p {
+ 	font-family:'Glacial Indifference Bold';
+ 		font-size: 40px;
+ 		line-height: 60px;
+ 	 }
